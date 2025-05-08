@@ -47,7 +47,7 @@ const RegistrationPage = () => {
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
           }).then(() => {
-            navigate('/workout');
+            navigate('/workouts');
           });
         } else {
           // Display error message from data.message
