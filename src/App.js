@@ -9,18 +9,14 @@ import RegistrationPage from './pages/RegisterPage';
 import Logout from './pages/Logout';
 import Workouts from './pages/Workouts.js';
 
-// App can be considered as our Mother component
 function App() {
-    // State hook for the user state for global scope
     const [user, setUser] = useState({
         id: null,
         email: null
     });
 
-    // State hook to track if user data is loaded
     const [loading, setLoading] = useState(true);
 
-    // Function for clearing the local storage
     function unsetUser() {
         localStorage.clear();
     }
@@ -38,20 +34,22 @@ function App() {
                         id: data._id,
                         email: data.email
                     });
-                    setLoading(false); // Set loading to false once the data is fetched
+                    setLoading(false);
                 });
         } else {
             setUser({
                 id: null,
                 email: null
             });
-            setLoading(false); // Ensure loading is false if no user is authenticated
+            setLoading(false);
         }
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>; // Optional: show loading indicator while fetching user data
+        return <div>Loading...</div>;
     }
+
+    const isLoggedIn = user.id !== null;
 
     return (
         <UserProvider value={{ user, setUser, unsetUser }}>
@@ -59,10 +57,10 @@ function App() {
                 <AppNavbar />
                 <Container>
                     <Routes>
-                        <Route path="/" element={<Navigate to="/login" replace />} />
-                        <Route path="/login" element={<Login />} />
+                        <Route path="/" element={<Navigate to={isLoggedIn ? "/workouts" : "/login"} replace />} />
+                        <Route path="/login" element={isLoggedIn ? <Navigate to="/workouts" replace /> : <Login />} />
                         <Route path="/register" element={<RegistrationPage />} />
-                        <Route path="/workouts" element={<Workouts />} />
+                        <Route path="/workouts" element={isLoggedIn ? <Workouts /> : <Navigate to="/login" replace />} />
                         <Route path="/logout" element={<Logout />} />
                     </Routes>
                 </Container>

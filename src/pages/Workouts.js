@@ -1,4 +1,4 @@
-import React, { useState, useEffect,   } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Card, Row, Col, Container } from 'react-bootstrap';
 import { FaPlusCircle, FaEdit } from 'react-icons/fa';
 import AddWorkout from '../components/addWorkout';
@@ -25,20 +25,23 @@ export default function Workouts() {
             })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.workouts && Array.isArray(data.workouts)) {
+                    if (Array.isArray(data.workouts)) {
                         setWorkouts(data.workouts);
+                    } else if (data.message === "No Workouts found.") {
+                        setWorkouts([]); 
+
                     } else {
-                        setError('Invalid data format');
+                        setError('Invalid data format.');
                     }
                     setIsLoading(false);
                 })
                 .catch((error) => {
                     console.error('Error fetching workouts:', error);
-                    setError('Error fetching workouts');
+                    setError('Error fetching workouts.');
                     setIsLoading(false);
                 });
         } else {
-            setError('User not authenticated');
+            setError('User not authenticated.');
             setIsLoading(false);
         }
     };
@@ -52,10 +55,7 @@ export default function Workouts() {
         setShowEditModal(true);
     };
 
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
-
+    const handleCloseModal = () => setShowModal(false);
     const handleCloseEditModal = () => {
         setShowEditModal(false);
         setSelectedWorkout(null);
@@ -69,24 +69,23 @@ export default function Workouts() {
 
     return (
         <Container className="mt-5">
+                {workouts.length > 0 && (
                     <Row className="align-items-center mb-4">
-                        <Col md={6}>
-                        </Col>
-                        <Col md={6} className="text-end">
-                        <Button
-                    id="addWorkout"
-                    variant="success"
-                    onClick={() => setShowModal(true)}
-                    >
-                    <FaPlusCircle className="me-2" /> Add Workout
-                    </Button>
-
+                        <Col></Col>
+                        <Col className="text-end">
+                            <Button
+                                id="addWorkout"
+                                variant="success"
+                                onClick={() => setShowModal(true)}
+                            >
+                                <FaPlusCircle className="me-2" /> Add Workout
+                            </Button>
                         </Col>
                     </Row>
+                )}
 
-
-            {isLoading && <p>Loading workouts...</p>}
-            {error && <p>{error}</p>}
+            {isLoading && <p className='text-center text-warning'>Loading workouts...</p>}
+            {error && <p className="text-danger">{error}</p>}
 
             <Row>
                 {workouts.length > 0 ? (
@@ -95,9 +94,7 @@ export default function Workouts() {
                             <Card className="shadow-sm rounded h-100">
                                 <Card.Body className="d-flex flex-column justify-content-between">
                                     <div>
-                                        <Card.Title className="fw-bold fs-4">
-                                            {workout.name}
-                                        </Card.Title>
+                                        <Card.Title className="fw-bold fs-4">{workout.name}</Card.Title>
                                         <Card.Subtitle className="mb-3 text-muted">
                                             Duration: {workout.duration}
                                         </Card.Subtitle>
@@ -106,12 +103,9 @@ export default function Workouts() {
                                             <span className={`badge ${workout.status === 'success' ? 'bg-success' : workout.status === 'pending' ? 'bg-warning text-dark' : 'bg-secondary'}`}>
                                                 {workout.status || 'N/A'}
                                             </span>
-                                            </Card.Text>
-
+                                        </Card.Text>
                                         <Card.Text className="text-muted">
-                                            <small>
-                                                Date Added: {new Date(workout.dateAdded).toLocaleDateString() || 'N/A'}
-                                            </small>
+                                            <small>Date Added: {new Date(workout.dateAdded).toLocaleDateString() || 'N/A'}</small>
                                         </Card.Text>
                                     </div>
 
@@ -124,34 +118,38 @@ export default function Workouts() {
                                             <FaEdit /> Edit
                                         </Button>
 
-                                        <div className="flex-fill">
-                                            <DeleteWorkout
+                                        <DeleteWorkout
+                                            workoutId={workout._id}
+                                            refreshWorkouts={refreshWorkouts}
+                                        />
+
+                                        {workout.status !== 'completed' && (
+                                            <CompleteWorkoutStatus
                                                 workoutId={workout._id}
                                                 refreshWorkouts={refreshWorkouts}
                                             />
-                                        </div>
-
-                                        {workout.status !== 'completed' && (
-                                                <div className="flex-fill">
-                                                    <CompleteWorkoutStatus
-                                                    workoutId={workout._id}
-                                                    refreshWorkouts={refreshWorkouts}
-                                                    />
-                                                </div>
-                                                )}
-
+                                        )}
                                     </div>
                                 </Card.Body>
                             </Card>
                         </Col>
                     ))
                 ) : (
-                    <Col>
-                        <p>No workouts found.</p>
+                    <Col className="d-flex justify-content-center">
+                        <Card className="text-center p-4 shadow mt-5" style={{ width: '100%', maxWidth: '500px' }}>
+                            <Card.Body>
+                                <h4 className="text-muted mb-3">No workouts found</h4>
+                                <p className="text-secondary">Start building your routine by adding a new workout.</p>
+                                <Button variant="success" onClick={() => setShowModal(true)}>
+                                    <FaPlusCircle className="me-2" /> Add Your First Workout
+                                </Button>
+                            </Card.Body>
+                        </Card>
                     </Col>
                 )}
             </Row>
 
+            {/* Modals */}
             <AddWorkout
                 showModal={showModal}
                 handleCloseModal={handleCloseModal}

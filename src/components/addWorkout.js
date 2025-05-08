@@ -36,6 +36,9 @@ export default function AddWorkout({ showModal, handleCloseModal, refreshWorkout
         })
         .then(response => response.json())
         .then(data => {
+            setWorkoutName('');
+            setDuration('');
+        
             refreshWorkouts();
             handleCloseModal();  // Close the modal after successful addition
     
