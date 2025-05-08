@@ -34,7 +34,6 @@ function App() {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log('user', data);
                     setUser({
                         id: data._id,
                         email: data.email

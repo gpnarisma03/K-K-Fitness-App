@@ -35,7 +35,6 @@ const RegistrationPage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.message === "Registered Successfully") {
           setEmail("");
           setPassword("");
