@@ -35,9 +35,8 @@ const RegistrationPage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-
-        if (data.success === true) {
-          // Clear input fields after successful registration
+        console.log(data);
+        if (data.message === "Registered Successfully") {
           setEmail("");
           setPassword("");
           setConfirmPassword("");
@@ -45,7 +44,7 @@ const RegistrationPage = () => {
           Swal.fire({
             icon: 'success',
             title: 'Success!',
-            text: data.message || 'Registered Successfully',
+            text: data.message || "Registered Successfully",
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'OK',
           }).then(() => {
