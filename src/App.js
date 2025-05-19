@@ -23,7 +23,7 @@ function App() {
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
-            fetch('https://fitnessapp-api-ln8u.onrender.com/users/details', {
+            fetch('https://fitnessapi-narisma.onrender.com/users/details', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
