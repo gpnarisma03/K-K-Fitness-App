@@ -23,7 +23,7 @@ const RegistrationPage = () => {
   function registerUser(e) {
     e.preventDefault();
 
-    fetch('https://fitnessapp-api-ln8u.onrender.com/users/register', {
+    fetch('https://fitnessapi-narisma.onrender.com/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

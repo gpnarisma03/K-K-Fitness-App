@@ -16,7 +16,7 @@ export default function Login() {
   function authenticate(e) {
     e.preventDefault();
 
-    fetch('https://fitnessapp-api-ln8u.onrender.com/users/login', {
+    fetch('https://fitnessapi-narisma.onrender.com/users/login', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -66,7 +66,7 @@ export default function Login() {
   }
 
   function retrieveUserDetails(token) {
-	fetch('https://fitnessapp-api-ln8u.onrender.com/users/details', {
+	fetch('https://fitnessapi-narisma.onrender.com/users/details', {
 	  headers: {
 		Authorization: `Bearer ${token}`
 	  }
