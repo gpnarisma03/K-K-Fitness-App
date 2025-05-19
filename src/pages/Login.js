@@ -66,7 +66,7 @@ export default function Login() {
   }
 
   function retrieveUserDetails(token) {
-	fetch('https://fitnessapp-api-ln8u.onrender.com/users/details', {
+	fetch('https://fitnessapi-narisma.onrender.com/users/details', {
 	  headers: {
 		Authorization: `Bearer ${token}`
 	  }
