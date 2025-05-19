@@ -17,7 +17,7 @@ export default function Workouts() {
     const fetchWorkouts = () => {
         const token = localStorage.getItem('token');
         if (token) {
-            fetch('https://fitnessapp-api-ln8u.onrender.com/workouts/getMyWorkouts', {
+            fetch('https://fitnessapi-narisma.onrender.com/workouts/getMyWorkouts', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

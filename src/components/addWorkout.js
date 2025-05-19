@@ -26,7 +26,7 @@ export default function AddWorkout({ showModal, handleCloseModal, refreshWorkout
         };
     
         // Fetch API call to add workout
-        fetch('https://fitnessapp-api-ln8u.onrender.com/workouts/addWorkout', {
+        fetch('https://fitnessapi-narisma.onrender.com/workouts/addWorkout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

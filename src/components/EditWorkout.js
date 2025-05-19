@@ -38,7 +38,7 @@ const EditWorkout = ({ show, handleClose, refreshWorkouts, workout }) => {
         }
 
         try {
-            const response = await fetch(`https://fitnessapp-api-ln8u.onrender.com/workouts/updateWorkout/${workout._id}`, {
+            const response = await fetch(`https://fitnessapi-narisma.onrender.com/workouts/updateWorkout/${workout._id}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,

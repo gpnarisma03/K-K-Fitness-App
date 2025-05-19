@@ -10,7 +10,7 @@ const CompleteWorkoutStatus = ({ workoutId, refreshWorkouts }) => {
         
         if (token) {
             setIsLoading(true);
-            fetch(`https://fitnessapp-api-ln8u.onrender.com/workouts/completeWorkoutStatus/${workoutId}`, {
+            fetch(`https://fitnessapi-narisma.onrender.com/workouts/completeWorkoutStatus/${workoutId}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,

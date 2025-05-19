@@ -20,7 +20,7 @@ const DeleteWorkout = ({ workoutId, refreshWorkouts }) => {
                 const token = localStorage.getItem('token'); // Get token from localStorage
 
                 if (token) {
-                    fetch(`https://fitnessapp-api-ln8u.onrender.com/workouts/deleteWorkout/${workoutId}`, {
+                    fetch(`https://fitnessapi-narisma.onrender.com/workouts/deleteWorkout/${workoutId}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `Bearer ${token}`,
